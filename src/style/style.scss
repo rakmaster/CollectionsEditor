@@ -55,20 +55,24 @@ header {
 }
 .container {
   @include container(90%);
-  display: grid;
-  grid-template-areas: 'left main right' 'actions actions actions';
-  grid-template-columns: minmax(auto, 20em) 1fr minmax(auto, 20em);
-  grid-template-rows: auto 1fr auto;
   min-height: 300px;
 }
 .container > div {
   float: left;
 }
+.subhead {
+  background: #333;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  @include clearfix;
+}
 .editor {
   display: grid;
-  grid-template-areas: 'left right';
-  grid-template-columns: (50% - $margin) (50% - $margin);
-  grid-template-rows: auto auto;
+  grid-template-areas: 'left main right';
+  grid-template-columns: minmax(auto, 20em) 1fr minmax(auto, 20em);
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
   min-height: 300px;
 }
 .editor > div {
@@ -108,17 +112,26 @@ textarea {
 .input-group {
   @include clearfix;
   margin-bottom: 2px;
-}
-.input {
-  float: left;
+  label, input {
+    float: left;
+  }
+  label {
+    width: 40%;
+    text-align: right;
+    padding: 5px;
+  }
 }
 .btn {
   display: inline-block;
-  padding: 5px;
+  padding: 10px 20px;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
+  background: cornflowerblue;
+  color: white;
+  font-weight: bold;
   vertical-align: middle;
+  cursor: pointer;
 }
 .right {
   float: right;
@@ -129,14 +142,9 @@ textarea {
 }
 .actions {
   @include clearfix;
-  grid-area: actions;
-  p {
-    float: left;
-    margin: 0 10px;
-  }
-  button {
-    float: right;
-  }
+  padding: 10px;
+  width: 100%;
+  text-align: right;
 }
 
 input {
