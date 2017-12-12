@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions, mapGetters } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     mounted () {
@@ -59,7 +59,7 @@
       }
     },
     computed: {
-      ...mapState('users', [
+      ...mapGetters('users', [
         'user'
       ]),
       ...mapGetters('monsters', [

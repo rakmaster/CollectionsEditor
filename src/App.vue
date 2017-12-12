@@ -3,7 +3,7 @@
     <header>
       <h1>Monster Editor</h1>
       <div class="user">
-        <button class="btn" @click="logout()"><i class="fa fa-sign-out"></i></button>
+        <button v-if="" class="btn" @click="logout()"><i class="fa fa-sign-out"></i></button>
       </div>
     </header>
     <router-view/>
@@ -22,6 +22,9 @@
     computed: {
       ...mapGetters([
         'client'
+      ]),
+      ...mapGetters('users, [
+        'user'
       ])
     },
     methods: {
