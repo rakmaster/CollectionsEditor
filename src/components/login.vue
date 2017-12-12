@@ -52,8 +52,15 @@
         }
         if (this.email.length && this.password.length) {
           client.login(this.email, this.password).then(response => {
-            this.setUser(response)
-            this.$router.push('/monsters')
+            if (!resopnse.error) {
+              this.setUser(response)
+              this.$router.push('/monsters')
+            } else {
+              this.feedback = {
+                type: 'warning',
+                msg: 'The login failed. Please check your information and try again.'
+              }
+            }
           })
         } else {
           this.feedback = {
