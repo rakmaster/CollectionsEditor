@@ -23,7 +23,7 @@
       ...mapGetters([
         'client'
       ]),
-      ...mapGetters('users, [
+      ...mapGetters('users', [
         'user'
       ])
     },
