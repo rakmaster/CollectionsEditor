@@ -46,11 +46,11 @@
 
   export default {
     mounted () {
-      // if (this.user) {
+      if (this.user) {
         this.setMonsters()
-      // } else {
-      //   this.$router.push('/')
-      // }
+      } else {
+        this.$router.push('/')
+      }
     },
     data () {
       return {

@@ -161,11 +161,10 @@ textarea {
   @include clearfix;
   padding: 10px;
   width: 100%;
-  > button {
-    float: right;
+  div {
+    text-align: right;
   }
 }
-
 input {
   padding: 5px;
   border: 1px #333 solid;

@@ -3,10 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const stitch = require('mongodb-stitch')
-const client = new stitch.StitchClient('dmautomator-mvuay')
-const db = client.service('mongodb', 'mongodb-atlas').db('monsters')
-
 const SET_MONSTERS = 'SET_MONSTERS'
 
 const state = {
@@ -22,11 +18,11 @@ const mutations = {
 }
 
 const actions = {
-  async setMonsters ({ commit }) {
-    commit('SET_MONSTERS', await db.collection('monsters').find({}).execute())
+  async setMonsters ({ commit, rootGetters }) {
+    commit('SET_MONSTERS', await rootGetters.db.collection('monsters').find({}).execute())
   },
-  async setMonster ({ commit }, input) {
-    await db.collection('monsters')
+  async setMonster ({ commit, rootGetters }, input) {
+    await rootGetters.db.collection('monsters')
       .updateOne({ _id: input.id }, { $set: input.set })
       .then(response => {
         console.log(response)

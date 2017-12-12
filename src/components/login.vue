@@ -20,10 +20,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-
-  const stitch = require('mongodb-stitch')
-  const client = new stitch.StitchClient('dmautomator-mvuay')
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     data () {
@@ -36,13 +33,19 @@
         password: ''
       }
     },
+    computed: {
+      ...mapGetters([
+        'client',
+        'db'
+      ])
+    },
     methods: {
       ...mapActions('users', [
         'setUser'
       ]),
       retrieve () {
         if (this.email) {
-          client.auth.provider('userpass').sendPasswordReset(this.email)
+          this.client.auth.provider('userpass').sendPasswordReset(this.email)
         }
       },
       login () {
@@ -51,8 +54,8 @@
           msg: ''
         }
         if (this.email.length && this.password.length) {
-          client.login(this.email, this.password).then(response => {
-            if (!resopnse.error) {
+          this.client.login(this.email, this.password).then(response => {
+            if (!response.error) {
               this.setUser(response)
               this.$router.push('/monsters')
             } else {
