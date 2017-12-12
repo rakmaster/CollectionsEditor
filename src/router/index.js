@@ -4,6 +4,7 @@ import MonstersEditor from '@/components/editor'
 import LoginForm from '@/components/login'
 import RegistrationForm from '@/components/register'
 import ConfirmRegistration from '@/components/confirm'
+import ResetPassword from '@/components/reset'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/confirm',
       name: 'ConfirmRegistration',
       component: ConfirmRegistration
+    },
+    {
+      path: '/reset',
+      name: 'ResetPassword',
+      component: ResetPassword
     },
     {
       path: '/monsters',

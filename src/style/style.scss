@@ -4,6 +4,7 @@ $susy: (
 );
 $margin: 1%;
 $background: #CCCCCC;
+$linkcolor: cornflowerblue;
 
 // box-sizing
 * {
@@ -53,12 +54,12 @@ header {
     margin: 10px 0;
   }
 }
+a {
+  color: $linkcolor;
+}
 .container {
   @include container(90%);
   min-height: 300px;
-}
-.container > div {
-  float: left;
 }
 .subhead {
   background: #333;
@@ -111,6 +112,7 @@ textarea {
 }
 .input-group {
   @include clearfix;
+  width: 100%;
   margin-bottom: 2px;
   label, input {
     float: left;
@@ -121,30 +123,47 @@ textarea {
     padding: 5px;
   }
 }
+.form-actions {
+  display: grid;
+  grid-template-areas: 'left right';
+  grid-template-rows: auto auto;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
 .btn {
-  display: inline-block;
+  background: $linkcolor;
   padding: 10px 20px;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
-  background: cornflowerblue;
   color: white;
   font-weight: bold;
-  vertical-align: middle;
   cursor: pointer;
-}
-.right {
-  float: right;
 }
 .danger {
   background-color: red;
+  color: white;
+}
+.warning {
+  background-color: gold;
+  color: white;
+}
+.success {
+  background-color: limegreen;
+  color: white;
+}
+.info {
+  background-color: cornflowerblue;
   color: white;
 }
 .actions {
   @include clearfix;
   padding: 10px;
   width: 100%;
-  text-align: right;
+  > button {
+    float: right;
+  }
 }
 
 input {
