@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <h1>Monster Editor</h1>
+      <h1 v-html="appName"></h1>
       <div class="user">
         <button v-if="" class="btn" @click="logout()"><i class="fa fa-sign-out"></i></button>
       </div>
@@ -21,6 +21,7 @@
     },
     computed: {
       ...mapGetters([
+        'appName',
         'client'
       ]),
       ...mapGetters('users', [

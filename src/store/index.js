@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'Vuex'
 import Users from './modules/users'
-import Monsters from './modules/monsters'
+import Collections from './modules/collections'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookie from 'js-cookie'
+import config from '../config'
 
 Vue.use(Vuex)
 
@@ -13,16 +14,17 @@ const SET_CLIENT = 'SET_CLIENT'
 const SET_DB = 'SET_DB'
 
 const state = {
+  config: config,
   client: null,
   db: null
 }
 
 const mutations = {
   [SET_CLIENT] (state) {
-    state.client = new Stitch.StitchClient('dmautomator-mvuay')
+    state.client = new Stitch.StitchClient(state.config.stitch.app)
   },
   [SET_DB] (state) {
-    state.db = state.client.service('mongodb', 'mongodb-atlas').db('monsters')
+    state.db = state.client.service('mongodb', 'mongodb-atlas').db(state.config.stitch.db)
   }
 }
 
@@ -37,13 +39,14 @@ const actions = {
 
 const getters = {
   client: state => state.client,
-  db: state => state.db
+  db: state => state.db,
+  appName: state => state.config.appName
 }
 
 let store = new Vuex.Store({
   modules: {
     users: Users,
-    monsters: Monsters
+    collections: Collections
   },
   state,
   mutations,

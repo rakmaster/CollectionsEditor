@@ -2,14 +2,14 @@
 <template>
   <div class="container">
     <h3 class="subhead">
-      Edit monsters
+      Edit records
     </h3>
     <div class="editor">
       <div>
-        <h3>all monsters</h3>
-        <p>All monsters in a list. Click one to edit.</p>
+        <h3>all records</h3>
+        <p>All records in a list. Click one to edit.</p>
         <div class="edit-area">
-          <div class="node" v-for="(node, index) in monsters">
+          <div class="node" v-for="(node, index) in records.monsters">
             <label @click="selected = node, selectedIndex = index">
               {{ node.name }} <i class="fa fa-edit right"></i>
             </label>
@@ -19,7 +19,7 @@
       </div>
       <div>
         <h3>edit</h3>
-        <p>Edit the monster's statistics.</p>
+        <p>Edit the record's values.</p>
         <div class="edit-area">
           <div class="input-group" v-for="(element, index) in selected" v-if="index !== '_id'">
             <label v-html="index"></label>
@@ -29,8 +29,8 @@
       </div>
       <div>
         <h3>output</h3>
-        <p>The completed monster data record.</p>
-        <textarea v-model="parsedMonster" contenteditable="false"></textarea>
+        <p>The completed data record.</p>
+        <textarea v-model="parsedRecord" contenteditable="false"></textarea>
       </div>
     </div>
     <div class="actions">
@@ -42,12 +42,12 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
 
   export default {
     mounted () {
       if (this.user) {
-        this.setMonsters()
+        this.setRecords('monsters')
       } else {
         this.$router.push('/')
       }
@@ -62,19 +62,19 @@
       ...mapGetters('users', [
         'user'
       ]),
-      ...mapGetters('monsters', [
-        'monsters'
+      ...mapState('collections', [
+        'records'
       ]),
-      parsedMonster () {
+      parsedRecord () {
         let transformed = Object.assign({}, this.selected)
         delete transformed._id
         return JSON.stringify(transformed, null, 1)
       }
     },
     methods: {
-      ...mapActions('monsters', [
-        'setMonsters',
-        'setMonster'
+      ...mapActions('collections', [
+        'setRecords',
+        'setRecord'
       ]),
       save () {
         let id = this.selected._id
@@ -84,7 +84,7 @@
           id: id,
           set: transformed
         }
-        this.setMonster(set)
+        this.setRecord(set)
       }
     }
   }

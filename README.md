@@ -1,6 +1,6 @@
-# monstereditor
+# CollectionsEditor
 
-> Make the monsters right
+> A Vue.js app to edit the records in a Mongodb collection using Mongodb Stitch
 
 ## Build Setup
 
@@ -28,3 +28,7 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Install
+
+Run the npm install script to load all node_modules dependencies. After the install, enter the values in the config to connect to your Stitch app. To test the connection use npm run unit stitch
