@@ -9,38 +9,22 @@ import config from '../config'
 Vue.use(Vuex)
 
 const Stitch = require('mongodb-stitch')
-
-const SET_CLIENT = 'SET_CLIENT'
-const SET_DB = 'SET_DB'
+const CLIENT = new Stitch.StitchClient(config.stitch.app)
+const DB = CLIENT.service('mongodb', 'mongodb-atlas').db(config.stitch.db)
 
 const state = {
   config: config,
-  client: null,
-  db: null
+  client: CLIENT,
+  db: DB
 }
 
-const mutations = {
-  [SET_CLIENT] (state) {
-    state.client = new Stitch.StitchClient(state.config.stitch.app)
-  },
-  [SET_DB] (state) {
-    state.db = state.client.service('mongodb', 'mongodb-atlas').db(state.config.stitch.db)
-  }
-}
+const mutations = {}
 
-const actions = {
-  setClient ({ commit }) {
-    commit('SET_CLIENT')
-  },
-  setDb ({ commit }) {
-    commit('SET_DB')
-  }
-}
+const actions = {}
 
 const getters = {
-  client: state => state.client,
-  db: state => state.db,
-  appName: state => state.config.appName
+  appName: state => state.config.appName,
+  collections: state => state.config.collections
 }
 
 let store = new Vuex.Store({

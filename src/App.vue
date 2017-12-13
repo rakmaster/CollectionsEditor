@@ -15,10 +15,6 @@
 
   export default {
     name: 'app',
-    mounted () {
-      this.setClient()
-      this.setDb()
-    },
     computed: {
       ...mapGetters([
         'appName',

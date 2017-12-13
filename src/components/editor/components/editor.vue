@@ -1,15 +1,14 @@
-
 <template>
   <div class="container">
     <h3 class="subhead">
-      Edit records
+      Edit records :: {{ collection }}
     </h3>
     <div class="editor">
       <div>
         <h3>all records</h3>
         <p>All records in a list. Click one to edit.</p>
-        <div class="edit-area">
-          <div class="node" v-for="(node, index) in records.monsters">
+        <div v-if="records[collection].length" class="edit-area">
+          <div class="node" v-for="(node, index) in records[collection]">
             <label @click="selected = node, selectedIndex = index">
               {{ node.name }} <i class="fa fa-edit right"></i>
             </label>
@@ -46,11 +45,11 @@
 
   export default {
     mounted () {
-      if (this.user) {
-        this.setRecords('monsters')
-      } else {
-        this.$router.push('/')
-      }
+      // if (this.user) {
+      this.setRecords(this.$route.path.substring(1))
+      // } else {
+      //   this.$router.push('/')
+      // }
     },
     data () {
       return {
@@ -65,6 +64,9 @@
       ...mapState('collections', [
         'records'
       ]),
+      collection () {
+        return this.$route.path.substring(1)
+      },
       parsedRecord () {
         let transformed = Object.assign({}, this.selected)
         delete transformed._id
