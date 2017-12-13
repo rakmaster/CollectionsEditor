@@ -14,7 +14,6 @@ const state = {
 const mutations = {
   [SET_RECORDS] (state, input) {
     state.records[input.collection] = input.records
-    console.log(state.records)
   }
 }
 
