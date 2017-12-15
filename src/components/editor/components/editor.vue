@@ -42,7 +42,6 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-
   export default {
     mounted () {
       if (this.user) {
@@ -104,7 +103,6 @@
         if (this.selected && node.name !== this.selected.name) {
           if (this.changed) {
             let warn = confirm('Select another record before saving the current changes?')
-
             if (warn) {
               this.records[this.collection][this.selectedIndex] = this.before
               this.before = Object.assign({}, node)
@@ -131,7 +129,7 @@
       },
       save () {
         let id = this.selected._id
-        let transformed = Object.assign({}, this.selected)
+        let transformed = Object.assign({}, this.selectend)
         delete transformed._id
         let set = {
           id: id,
