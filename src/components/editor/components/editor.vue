@@ -7,8 +7,8 @@
       <div>
         <h3>all records</h3>
         <p>All records in a list. Click one to edit.</p>
-        <div v-if="records[collection]" class="edit-area">
-          <div class="node" v-for="(node, index) in records[collection]">
+        <div v-if="records[collection]" id="edit-area" class="edit-area">
+          <div v-infinite-scroll="loadMore" id="edit-items" class="node" v-for="(node, index) in records[collection]">
             <label @click="selectMe(node, index)">
               {{ node.name }} <i class="fa fa-edit right"></i>
             </label>
@@ -46,19 +46,28 @@
   export default {
     mounted () {
       // if (this.user) {
-      if (!this.records[this.collection]) {
-        this.setRecords(this.$route.path.substring(1))
-      }
+      this.collection = this.$route.path.substring(1)
+      this.setRecords(this.collection)
       // } else {
       //   this.$router.push('/')
       // }
     },
+    updated () {
+      this.toScroll = document.getElementById('edit-area')
+      if (this.toScroll) {
+        this.scroll()
+      }
+    },
     data () {
       return {
+        toScroll: null,
+        busy: false,
+        collection: '',
         before: null,
         selected: null,
         selectedIndex: 0,
-        changed: false
+        changed: false,
+        trigger: 300
       }
     },
     computed: {
@@ -68,9 +77,6 @@
       ...mapState('collections', [
         'records'
       ]),
-      collection () {
-        return this.$route.path.substring(1)
-      },
       parsedRecord () {
         let transformed = Object.assign({}, this.selected)
         delete transformed._id
@@ -80,8 +86,20 @@
     methods: {
       ...mapActions('collections', [
         'setRecords',
-        'setRecord'
+        'setRecord',
+        'addRecords'
       ]),
+      scroll () {
+        this.toScroll.onscroll = ev => {
+          if (
+            this.toScroll.offsetHeight + this.toScroll.scrollTop >=
+            (this.toScroll.scrollHeight - this.trigger) && !this.busy
+          ) {
+            this.busy = true
+            this.loadMore()
+          }
+        }
+      },
       selectMe (node, index) {
         if (this.selected && node.name !== this.selected.name) {
           if (this.changed) {
@@ -104,6 +122,12 @@
           this.selected = node
           this.selectedIndex = index
         }
+      },
+      async loadMore () {
+        const _this = this
+        await this.addRecords(this.collection).then(response => {
+          _this.busy = false
+        })
       },
       save () {
         let id = this.selected._id

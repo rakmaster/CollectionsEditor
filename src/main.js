@@ -2,11 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueStitch from './VueStitch'
+import infiniteScroll from 'vue-infinite-scroll'
 import App from './App'
 import router from './router'
 import store from './store'
 
 Vue.use(Vuex)
+Vue.use(VueStitch)
+Vue.use(infiniteScroll)
 
 Vue.config.productionTip = false
 
