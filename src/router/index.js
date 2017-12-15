@@ -6,8 +6,6 @@ import RegistrationForm from '@/components/register'
 import ConfirmRegistration from '@/components/confirm'
 import ResetPassword from '@/components/reset'
 
-import store from '@/store'
-
 Vue.use(Router)
 
 let routeSet = [
@@ -30,22 +28,13 @@ let routeSet = [
     path: '/reset',
     name: 'ResetPassword',
     component: ResetPassword
+  },
+  {
+    path: '/admin/:collection',
+    name: 'Admin',
+    component: Editor
   }
 ]
-
-const firstToUpper = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-for (var s in store.state.config.collections) {
-  let collection = store.state.config.collections[s]
-  let name = firstToUpper(collection)
-  routeSet.push({
-    path: '/' + collection,
-    name: name + 'Editor',
-    component: Editor
-  })
-}
 
 export default new Router({
   routes: routeSet

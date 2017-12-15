@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="content">
     <h3 class="subhead">
       Log in
     </h3>
@@ -36,8 +36,12 @@
     computed: {
       ...mapGetters([
         'client',
-        'db'
-      ])
+        'db',
+        'collections'
+      ]),
+      collection () {
+        return this.collections[0]
+      }
     },
     methods: {
       ...mapActions('users', [
@@ -57,7 +61,7 @@
           this.client.login(this.email, this.password).then(response => {
             if (!response.error) {
               this.setUser(response)
-              this.$router.push('/monsters')
+              this.$router.push('/admin/' + this.collection)
             } else {
               this.feedback = {
                 type: 'warning',

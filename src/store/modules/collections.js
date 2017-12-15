@@ -19,10 +19,6 @@ const mutations = {
 
 const actions = {
   async setRecords ({ state, commit, rootState }, input) {
-    let lastId = 0
-    if (state.records[input]) {
-      lastId = state.records[input][(state.records[input].length - 1)]
-    }
     commit('SET_RECORDS', {collection: input, records: await rootState.db.collection(input).find().sort({'_id': 1}).limit(state.perPage).execute()})
   },
   async setRecord ({ state, commit, rootState }, input) {

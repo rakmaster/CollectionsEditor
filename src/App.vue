@@ -6,21 +6,31 @@
         <button v-if="" class="btn" @click="logout()"><i class="fa fa-sign-out"></i></button>
       </div>
     </header>
-    <router-view/>
+    <nav v-if="user">
+      <ul>
+        <li v-for="collection in collections">
+          <router-link :to="'/admin/' + collection">{{ collection }}</router-link>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'app',
     computed: {
       ...mapGetters([
         'appName',
-        'client'
+        'client',
+        'collections'
       ]),
-      ...mapGetters('users', [
+      ...mapState('users', [
         'user'
       ])
     },

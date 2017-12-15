@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="content">
     <h3 class="subhead">
       Edit records :: {{ collection }}
     </h3>
@@ -41,16 +41,16 @@
 </template>
 
 <script>
-  import { mapState, mapActions, mapGetters } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     mounted () {
-      // if (this.user) {
-      this.collection = this.$route.path.substring(1)
-      this.setRecords(this.collection)
-      // } else {
-      //   this.$router.push('/')
-      // }
+      if (this.user) {
+        this.collection = this.$route.params.collection
+        this.setRecords(this.collection)
+      } else {
+        this.$router.push('/')
+      }
     },
     updated () {
       this.toScroll = document.getElementById('edit-area')
@@ -71,7 +71,7 @@
       }
     },
     computed: {
-      ...mapGetters('users', [
+      ...mapState('users', [
         'user'
       ]),
       ...mapState('collections', [

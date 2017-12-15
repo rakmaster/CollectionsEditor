@@ -24,6 +24,7 @@ const actions = {}
 
 const getters = {
   appName: state => state.config.appName,
+  client: state => state.client,
   collections: state => state.config.collections
 }
 

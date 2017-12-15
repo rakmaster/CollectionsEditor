@@ -20,22 +20,17 @@ const mutations = {
 }
 
 const actions = {
-  async setUser ({ commit, rootGetters }, input) {
-    commit('SET_USER', await rootGetters.client.login(input))
+  setUser ({ commit }, input) {
+    commit('SET_USER', input)
   },
   unsetUser ({ commit }) {
     commit('UNSET_USER')
   }
 }
 
-const getters = {
-  user: state => state.user
-}
-
 export default {
   namespaced: true,
   state,
   mutations,
-  actions,
-  getters
+  actions
 }
