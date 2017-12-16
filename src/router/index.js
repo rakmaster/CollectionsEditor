@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Editor from '@/components/editor'
+import Edit from '@/components/edit'
 import LoginForm from '@/components/login'
 import RegistrationForm from '@/components/register'
 import ConfirmRegistration from '@/components/confirm'
@@ -32,7 +32,7 @@ let routeSet = [
   {
     path: '/admin/:collection',
     name: 'Admin',
-    component: Editor
+    component: Edit
   }
 ]
 

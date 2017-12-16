@@ -61,7 +61,7 @@
           this.client.login(this.email, this.password).then(response => {
             if (!response.error) {
               this.setUser(response)
-              this.$router.push('/admin/' + this.collection)
+              this.$router.push(`/admin/${this.collection}`)
             } else {
               this.feedback = {
                 type: 'warning',

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'Vuex'
 import Users from './modules/users'
-import Collections from './modules/collections'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookie from 'js-cookie'
 import config from '../config'
@@ -30,8 +29,7 @@ const getters = {
 
 let store = new Vuex.Store({
   modules: {
-    users: Users,
-    collections: Collections
+    users: Users
   },
   state,
   mutations,

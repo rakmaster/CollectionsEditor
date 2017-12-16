@@ -3,7 +3,7 @@
     <header>
       <h1 v-html="appName"></h1>
       <div class="user">
-        <button v-if="" class="btn" @click="logout()"><i class="fa fa-sign-out"></i></button>
+        <button v-if="user" class="btn" @click="logout()"><i class="fa fa-sign-out"></i></button>
       </div>
     </header>
     <nav v-if="user">
@@ -23,7 +23,6 @@
   import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
-    name: 'app',
     computed: {
       ...mapGetters([
         'appName',
@@ -35,10 +34,6 @@
       ])
     },
     methods: {
-      ...mapActions([
-        'setClient',
-        'setDb'
-      ]),
       ...mapActions('users', [
         'unsetUser'
       ]),
