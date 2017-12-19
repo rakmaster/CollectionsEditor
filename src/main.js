@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueStitch from './VueStitch'
+import Vuetify from 'vuetify'
 import infiniteScroll from 'vue-infinite-scroll'
 import App from './App'
 import router from './router'
@@ -11,6 +12,7 @@ import store from './store'
 Vue.use(Vuex)
 Vue.use(VueStitch)
 Vue.use(infiniteScroll)
+Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 

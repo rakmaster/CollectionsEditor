@@ -15,10 +15,12 @@
   },
   "dependencies": {
     "js-cookie": "^2.2.0",
+    "moment": "^2.20.1",
     "mongodb-stitch": "^2.2.0",
     "vue": "^2.5.2",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1",
+    "vuetify": "^0.17.5",
     "vuex": "^3.0.1",
     "vuex-persistedstate": "^2.4.2"
   },

@@ -1,22 +1,38 @@
 <template>
-  <div class="content">
-    <h3 class="subhead">
-      Log in
-    </h3>
-    <div v-if="feedback.msg" :class="['feedback', feedback.msg ? feedback.type : '']" v-html="feedback.msgs"></div>
-    <div class="input-group">
-      <label>Email</label>
-      <input type="text" v-model="email">
-    </div>
-    <div class="input-group">
-      <label>Password</label>
-      <input type="password" v-model="password">
-    </div>
-    <div class="form-actions">
-      <a href="javascript:;" @click="retrieve()">Lost your password?</a>
-      <button class="btn" @click="login()">Submit</button>
-    </div>
-  </div>
+  <v-card color="grey darken-4" flat style="margin: 0 auto;">
+    <v-card-text>
+      <v-container fluid>
+        <v-layout row>
+          <v-flex xs12>
+            <v-subheader>Log In</v-subheader>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <v-container>
+        <v-layout column>
+          <v-flex xs12>
+            <v-text-field
+              name="email"
+              label="Email"
+              id="email"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              name="password"
+              label="Password"
+              id="password"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs12>
+            <v-btn right @click="login()">Submit</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -25,10 +41,6 @@
   export default {
     data () {
       return {
-        feedback: {
-          type: 'info',
-          msg: ''
-        },
         email: '',
         password: ''
       }
