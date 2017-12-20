@@ -1,8 +1,5 @@
 <template>
-  <div class="editor-results">
-    <slot name="header"></slot>
-    <textarea v-model="display" contenteditable="false"></textarea>
-  </div>
+  <div v-model="display" class="editor-results"><pre>{{ display }}</pre></div>
 </template>
 
 <script>
@@ -10,9 +7,14 @@
     props: ['copy'],
     computed: {
       display () {
-        console.log(this.copy)
         return JSON.stringify(this.copy, null, 1)
       }
     }
   }
 </script>
+
+<style>
+  .editor-results {
+    min-height: 400px;
+  }
+</style>

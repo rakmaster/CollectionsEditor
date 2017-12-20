@@ -26,8 +26,7 @@
         record: {},
         recordIndex: 0,
         perPage: 20,
-        busy: false,
-        changed: false
+        busy: false
       }
     },
     computed: {
@@ -59,21 +58,24 @@
       async set () {
         this.records = await this.db.collection(this.collection).find().sort({'_id': 1}).limit(this.perPage).execute()
       },
-      change (input) {
-        this.changed = input
-      },
       async load () {
         const _this = this
         if (!this.busy) {
           this.busy = true
-          await this.get().then(() => {
+          await this.get().then(result => {
+            this.records = [this.records, ...result]
             _this.busy = false
           })
         }
       },
       async get () {
-        const lastId = this.records[(this.records.length - 1)]._id
-        await this.db.collection(this.collection).find({'_id': {$gt: lastId}}).sort({'_id': 1}).limit(this.perPage).execute()
+        if (this.records.length) {
+          const lastId = this.records[(this.records.length - 1)]._id
+          console.log(lastId)
+          // await this.db.collection(this.collection).find({'_id': {$gt: lastId}}).sort({'_id': 1}).limit(this.perPage).execute()
+        } else {
+          await this.db.collection(this.collection).find({}).sort({'_id': 1}).limit(this.perPage).execute()
+        }
       },
       select (input) {
         if (this.record.hasOwnProperty('name') && input.node.name !== this.record.name) {

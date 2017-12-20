@@ -69,3 +69,11 @@
     }
   }
 </script>
+
+<style>
+  .subhead {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #EFEFEF;
+  }
+</style>

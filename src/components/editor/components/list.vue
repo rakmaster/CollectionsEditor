@@ -1,13 +1,17 @@
 <template>
-  <div class="editor-list">
-    <slot name="header"></slot>
-    <div v-if="set" id="edit-area" class="edit-area">
-      <div v-infinite-scroll="load" id="edit-items" class="node" v-for="(node, index) in set">
-        <label @click="select(node, index)">
-          {{ node.name }} <i class="fa fa-edit right"></i>
-        </label>
-        <button v-if="del" class="btn danger right" @click="remove(index)"><i class="fa fa-ban"></i></button>
-      </div>
+  <div class="editor-list"">
+    <div v-infinite-scroll="load" infinite-scroll-distance="30">
+      <v-list dense v-if="set">
+        <v-list-tile
+          v-for="(node, index) in set"
+          ripple
+          @click="select(node, index)"
+          :key="index">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ node.name }} <i class="fa fa-edit right"></i></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </div>
   </div>
 </template>
@@ -15,9 +19,6 @@
 <script>
   export default {
     props: ['set', 'del'],
-    mounted () {
-      console.log(this.set)
-    },
     data () {
       return {
         toScroll: null,
@@ -55,3 +56,10 @@
     }
   }
 </script>
+
+<style>
+  .editor-list {
+    height: 400px;
+    overflow: auto;
+  }
+</style>

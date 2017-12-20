@@ -26,9 +26,7 @@ export default {
     '          <div class="subhead">All records</div>' +
     '        </v-card-title>' +
     '        <v-card-text>' +
-    '          <div class="editor-list">' +
-    '            <list :set="recordSet" :del="false" @load="doLoad" @select="doSelect" @remove="doRemove"><column-header :input="headers[0]"></column-header></list>' +
-    '          </div>' +
+    '          <list :set="recordSet" :del="false" @load="doLoad" @select="doSelect" @remove="doRemove"><column-header :input="headers[0]"></column-header></list>' +
     '        </v-card-text>' +
     '      </v-card>' +
     '    </v-flex>' +
@@ -38,14 +36,14 @@ export default {
     '          <div class="subhead">Edit record</div>' +
     '        </v-card-title>' +
     '        <v-card-text>' +
-    '          <edit :record="record" @change="doChange"><column-header :input="headers[1]"></column-header></edit>' +
+    '          <edit :record="record"><column-header :input="headers[1]"></column-header></edit>' +
     '        </v-card-text>' +
     '      </v-card>' +
     '    </v-flex>' +
     '    <v-flex>' +
     '      <v-card>' +
     '        <v-card-title>' +
-    '          <div class="subhead">Edit record</div>' +
+    '          <div class="subhead">Edit results</div>' +
     '        </v-card-title>' +
     '        <v-card-text>' +
     '          <results :copy="copied"><column-header :input="headers[2]"></column-header></results>' +
@@ -96,9 +94,6 @@ export default {
     }
   },
   methods: {
-    doChange (state) {
-      this.$emit('action', {name: 'change', value: state})
-    },
     doLoad () {
       this.$emit('action', {name: 'load', value: null})
     },

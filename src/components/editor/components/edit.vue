@@ -1,20 +1,21 @@
 <template>
-  <div class="editor-edit">
-    <slot></slot>
-    <div class="input-group" v-for="(element, index) in record" v-if="index !== '_id'">
-      <label v-html="index"></label>
-      <input :value="element" type="text" @input="record[index] = $event.target.value" @change="change(true)">
-    </div>
-  </div>
+  <v-layout column>
+    <v-flex xs12>
+      <v-text-field
+        v-for="(element, index) in record"
+        v-if="index !== '_id'"
+        :label="index"
+        :value="element"
+        input="record[index] = this.value"
+        change="change(true)"
+      ></v-text-field>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
   export default {
     props: ['record'],
-    methods: {
-      change (state) {
-        this.$emit('change', state)
-      }
-    }
+    methods: {}
   }
 </script>
