@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3 class="subhead">
-      Log in
+      Reset your password
     </h3>
     <div v-if="feedback.msg" :class="['feedback', feedback.msg ? feedback.type : '']" v-html="feedback.msg"></div>
     <div class="input-group">

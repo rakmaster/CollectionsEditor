@@ -1,48 +1,36 @@
 <template>
-  <v-card color="grey darken-4" flat style="margin: 0 auto;">
-    <v-card-text>
-      <v-container fluid>
-        <v-layout row>
-          <v-flex xs12>
-            <v-subheader>Log In</v-subheader>
-          </v-flex>
-        </v-layout>
-      </v-container>
-      <v-container>
-        <v-layout column>
-          <v-vlex xs12 v-if="feedback">{{ feedback }}</v-vlex>
-          <v-flex xs12>
-            <v-text-field
-              name="email"
-              label="Email"
-              id="email"
-              v-model="email"
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs12>
-            <v-text-field
-              name="password"
-              label="Password"
-              id="password"
-              v-model="password"
-              :type="'password'"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs12>
-            <v-btn right @click="login()">Submit</v-btn>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card-text>
-  </v-card>
+  <v-form :input="{title: 'Log In', feedback: feedback}" @action="login()">
+    <template>
+      <v-flex xs12>
+        <v-text-field
+          name="email"
+          label="Email"
+          id="email"
+          v-model="email"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12>
+        <v-text-field
+          name="password"
+          label="Password"
+          id="password"
+          v-model="password"
+          :type="'password'"
+        ></v-text-field>
+      </v-flex>
+    </template>
+  </v-form>
 </template>
 
 <script>
+  import VForm from './_shared/form'
+
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
+    components: {
+      VForm
+    },
     data () {
       return {
         email: '',

@@ -6,6 +6,7 @@
         v-if="index !== '_id'"
         :label="index"
         :value="element"
+        :key="index"
         input="record[index] = this.value"
         change="change(true)"
       ></v-text-field>
