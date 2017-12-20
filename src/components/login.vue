@@ -10,11 +10,13 @@
       </v-container>
       <v-container>
         <v-layout column>
+          <v-vlex xs12 v-if="feedback">{{ feedback }}</v-vlex>
           <v-flex xs12>
             <v-text-field
               name="email"
               label="Email"
               id="email"
+              v-model="email"
             ></v-text-field>
           </v-flex>
           <v-flex xs12>
@@ -22,6 +24,8 @@
               name="password"
               label="Password"
               id="password"
+              v-model="password"
+              :type="'password'"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -42,7 +46,8 @@
     data () {
       return {
         email: '',
-        password: ''
+        password: '',
+        feedback: ''
       }
     },
     computed: {
@@ -65,27 +70,18 @@
         }
       },
       login () {
-        this.feedback = {
-          type: 'info',
-          msg: ''
-        }
+        this.feedback = ''
         if (this.email.length && this.password.length) {
           this.client.login(this.email, this.password).then(response => {
             if (!response.error) {
               this.setUser(response)
               this.$router.push(`/admin/${this.collection}`)
             } else {
-              this.feedback = {
-                type: 'warning',
-                msg: 'The login failed. Please check your information and try again.'
-              }
+              this.feedback = 'The login failed. Please check your information and try again.'
             }
           })
         } else {
-          this.feedback = {
-            type: 'warning',
-            msg: 'All fields are required.'
-          }
+          this.feedback = 'All fields are required.'
         }
       }
     }
