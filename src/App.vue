@@ -13,7 +13,7 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>
-              <router-link :to="'/admin/' + collection">{{ collection }}</router-link>
+              <router-link :to="`/admin/${collection}`" v-html="collection"></router-link>
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
