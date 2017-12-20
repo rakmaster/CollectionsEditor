@@ -12,20 +12,53 @@ export default {
     Actions,
     ColumnHeader
   },
-  template: '' +
-  '<div class="content">' +
-  '  <h3 class="subhead">\n' +
-  '    Edit records :: {{ set.name }}\n' +
-  '  </h3>' +
-  '  <div class="editor">' +
-  '    <list :set="recordSet" :del="false" @load="doLoad" @select="doSelect" @remove="doRemove"><column-header :input="headers[0]"></column-header></list>' +
-  '    <edit :record="record" @change="doChange"><column-header :input="headers[1]"></column-header></edit>' +
-  '    <results :copy="copied"><column-header :input="headers[2]"></column-header></results>' +
-  '  </div>' +
-  '  <div class="actions">' +
-  '    <actions @save="doSave"></actions>' +
-  '  </div>' +
-  '</div>',
+  template:
+    '<v-container>' +
+    '  <v-layout row>' +
+    '    <v-flex xs12>' +
+    '      <div class="headline">Edit Records :: {{ set.name }}</div>' +
+    '    </v-flex>' +
+    '  </v-layout>' +
+    '  <v-layout row>' +
+    '    <v-flex xs12 sm4>' +
+    '      <v-card>' +
+    '        <v-card-title>' +
+    '          <div class="subhead">All records</div>' +
+    '        </v-card-title>' +
+    '        <v-card-text>' +
+    '          <div class="editor-list">' +
+    '            <list :set="recordSet" :del="false" @load="doLoad" @select="doSelect" @remove="doRemove"><column-header :input="headers[0]"></column-header></list>' +
+    '          </div>' +
+    '        </v-card-text>' +
+    '      </v-card>' +
+    '    </v-flex>' +
+    '    <v-flex>' +
+    '      <v-card>' +
+    '        <v-card-title>' +
+    '          <div class="subhead">Edit record</div>' +
+    '        </v-card-title>' +
+    '        <v-card-text>' +
+    '          <edit :record="record" @change="doChange"><column-header :input="headers[1]"></column-header></edit>' +
+    '        </v-card-text>' +
+    '      </v-card>' +
+    '    </v-flex>' +
+    '    <v-flex>' +
+    '      <v-card>' +
+    '        <v-card-title>' +
+    '          <div class="subhead">Edit record</div>' +
+    '        </v-card-title>' +
+    '        <v-card-text>' +
+    '          <results :copy="copied"><column-header :input="headers[2]"></column-header></results>' +
+    '        </v-card-text>' +
+    '      </v-card>' +
+    '    </v-flex>' +
+    '  </v-layout>' +
+    '  <v-layout>' +
+    '    <v-flex xs12>' +
+    '      <v-btn @click="doSave"></v-btn>' +
+    '    </v-flex>' +
+    '  </v-layout>' +
+    '</v-container>',
   props: ['set'],
   data () {
     return {
