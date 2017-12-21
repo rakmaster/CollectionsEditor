@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Vuetify from 'vuetify'
 
 Vue.use(Vuex)
+Vue.use(Vuetify)
+
+import store from '@/store'
+console.log(store)
 
 import Register from '@/components/register'
 import Confirm from '@/components/confirm'

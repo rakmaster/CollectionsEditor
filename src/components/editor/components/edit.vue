@@ -20,3 +20,9 @@
     methods: {}
   }
 </script>
+
+<style scoped>
+  .input-group {
+    padding: 0;
+  }
+</style>

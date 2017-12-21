@@ -52,12 +52,12 @@
         'client',
         'collections'
       ]),
-      ...mapState('users', [
+      ...mapState([
         'user'
       ])
     },
     methods: {
-      ...mapActions('users', [
+      ...mapActions([
         'unsetUser'
       ]),
       logout () {

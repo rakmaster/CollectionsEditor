@@ -34,7 +34,7 @@
         'client',
         'db'
       ]),
-      ...mapState('users', [
+      ...mapState([
         'user'
       ]),
       send () {

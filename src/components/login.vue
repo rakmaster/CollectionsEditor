@@ -1,25 +1,29 @@
 <template>
-  <v-form :input="{title: 'Log In', feedback: feedback}" @action="login()">
-    <template>
-      <v-flex xs12>
-        <v-text-field
-          name="email"
-          label="Email"
-          id="email"
-          v-model="email"
-        ></v-text-field>
-      </v-flex>
-      <v-flex xs12>
-        <v-text-field
-          name="password"
-          label="Password"
-          id="password"
-          v-model="password"
-          :type="'password'"
-        ></v-text-field>
-      </v-flex>
-    </template>
-  </v-form>
+  <v-layout>
+    <v-flex xs3 offset-xs4>
+      <v-form :input="{title: 'Log In', feedback: feedback}" @action="login()">
+        <template>
+          <v-flex xs12>
+            <v-text-field
+              name="email"
+              label="Email"
+              id="email"
+              v-model="email"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              name="password"
+              label="Password"
+              id="password"
+              v-model="password"
+              :type="'password'"
+            ></v-text-field>
+          </v-flex>
+        </template>
+      </v-form>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -49,7 +53,7 @@
       }
     },
     methods: {
-      ...mapActions('users', [
+      ...mapActions([
         'setUser'
       ]),
       retrieve () {
@@ -63,7 +67,7 @@
           this.client.login(this.email, this.password).then(response => {
             if (!response.error) {
               this.setUser(response)
-              this.$router.push(`/admin/${this.collection}`)
+              // this.$router.push(`/admin/${this.collection}`)
             } else {
               this.feedback = 'The login failed. Please check your information and try again.'
             }

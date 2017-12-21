@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'Vuex'
 import createPersistedState from 'vuex-persistedstate'
-import * as Cookie from 'js-cookie'
+import * as Cookies from 'js-cookie'
 import config from '../config'
 
 Vue.use(Vuex)
@@ -51,11 +51,10 @@ let store = new Vuex.Store({
   getters,
   plugins: [
     createPersistedState({
-      paths: ['user'],
       storage: {
-        getItem: key => Cookie.get(key),
-        setItem: (key, value) => Cookie.set(key, value, {expires: 3, secure: true}),
-        removeItem: key => Cookie.remove(key)
+        getItem: key => Cookies.get(key),
+        setItem: (key, value) => Cookies.set(key, value, {expires: 3, secure: false}),
+        removeItem: key => Cookies.remove(key)
       }
     })
   ]
