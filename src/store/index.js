@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'Vuex'
-import createPersistedState from 'vuex-persistedstate'
-import * as Cookies from 'js-cookie'
+import VuexPersistence from 'vuex-persist'
 import config from '../config'
 
 Vue.use(Vuex)
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  reducer: state => ({user: state.user})
+})
 
 const SET_USER = 'SET_USER'
 const UNSET_USER = 'UNSET_USER'
@@ -49,15 +53,7 @@ let store = new Vuex.Store({
   mutations,
   actions,
   getters,
-  plugins: [
-    createPersistedState({
-      storage: {
-        getItem: key => Cookies.get(key),
-        setItem: (key, value) => Cookies.set(key, value, {expires: 3, secure: false}),
-        removeItem: key => Cookies.remove(key)
-      }
-    })
-  ]
+  plugins: [vuexLocal.plugin]
 })
 
 export default store

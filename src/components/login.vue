@@ -29,11 +29,16 @@
 <script>
   import VForm from './_shared/form'
 
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
     components: {
       VForm
+    },
+    mounted () {
+      if (this.user) {
+        this.$router.push(`/admin/${this.collection}`)
+      }
     },
     data () {
       return {
@@ -43,6 +48,9 @@
       }
     },
     computed: {
+      ...mapState([
+        'user'
+      ]),
       ...mapGetters([
         'client',
         'db',
@@ -67,7 +75,7 @@
           this.client.login(this.email, this.password).then(response => {
             if (!response.error) {
               this.setUser(response)
-              // this.$router.push(`/admin/${this.collection}`)
+              this.$router.push(`/admin/${this.collection}`)
             } else {
               this.feedback = 'The login failed. Please check your information and try again.'
             }
