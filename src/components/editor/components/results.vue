@@ -16,5 +16,6 @@
 <style>
   .editor-results {
     min-height: 400px;
+    overflow: hidden;
   }
 </style>

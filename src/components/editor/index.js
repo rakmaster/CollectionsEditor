@@ -20,7 +20,7 @@ export default {
     '    </v-flex>' +
     '  </v-layout>' +
     '  <v-layout row>' +
-    '    <v-flex xs12 sm4>' +
+    '    <v-flex xs12 sm3>' +
     '      <v-card>' +
     '        <v-card-title>' +
     '          <div class="subhead">All records</div>' +
@@ -30,17 +30,17 @@ export default {
     '        </v-card-text>' +
     '      </v-card>' +
     '    </v-flex>' +
-    '    <v-flex>' +
+    '    <v-flex xs12 sm6>' +
     '      <v-card>' +
     '        <v-card-title>' +
     '          <div class="subhead">Edit record</div>' +
     '        </v-card-title>' +
     '        <v-card-text>' +
-    '          <edit :record="record"><column-header :input="headers[1]"></column-header></edit>' +
+    '          <edit :record="record" @change="doChange"><column-header :input="headers[1]"></column-header></edit>' +
     '        </v-card-text>' +
     '      </v-card>' +
     '    </v-flex>' +
-    '    <v-flex>' +
+    '    <v-flex xs12 sm3>' +
     '      <v-card>' +
     '        <v-card-title>' +
     '          <div class="subhead">Edit results</div>' +
@@ -52,8 +52,8 @@ export default {
     '    </v-flex>' +
     '  </v-layout>' +
     '  <v-layout>' +
-    '    <v-flex xs12>' +
-    '      <v-btn @click="doSave"></v-btn>' +
+    '    <v-flex class="text-xs-right" xs12>' +
+    '      <v-btn class="white--text" @click="doSave" :disabled="!set.changed">Save Record</v-btn>' +
     '    </v-flex>' +
     '  </v-layout>' +
     '</v-container>',
@@ -94,11 +94,17 @@ export default {
     }
   },
   methods: {
+    doChange () {
+      this.$emit('action', {name: 'change', value: null})
+    },
     doLoad () {
       this.$emit('action', {name: 'load', value: null})
     },
     doSelect (item) {
-      this.$emit('action', {name: 'select', value: item})
+      if (item._id !== this.record._id) {
+
+        this.$emit('action', {name: 'select', value: item})
+      }
     },
     doRemove (index) {
       this.$emit('action', {name: 'remove', value: index})

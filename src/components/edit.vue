@@ -26,7 +26,8 @@
         record: {},
         recordIndex: 0,
         perPage: 20,
-        busy: false
+        busy: false,
+        changed: false
       }
     },
     computed: {
@@ -41,7 +42,8 @@
         let out = {
           name: this.collection,
           record: this.record,
-          records: this.records
+          records: this.records,
+          changed: this.changed
         }
         return out
       }
@@ -53,7 +55,15 @@
         'addRecords'
       ]),
       handleActions (todo) {
-        this[todo.name](todo.value)
+        const method = this[todo.name]
+        if (todo.value) {
+          method(todo.value)
+        } else {
+          method()
+        }
+      },
+      change () {
+        this.changed = !this.changed
       },
       async set () {
         this.records = await this.db.collection(this.collection).find().sort({'_id': 1}).limit(this.perPage).execute()
