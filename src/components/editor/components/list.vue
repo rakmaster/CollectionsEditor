@@ -1,6 +1,6 @@
 <template>
   <div class="editor-list"">
-    <div v-infinite-scroll="load" infinite-scroll-distance="30">
+    <div v-infinite-scroll="load" infinite-scroll-distance="60">
       <v-list dense v-if="set">
         <v-list-tile
           v-for="(node, index) in set"

@@ -70,21 +70,25 @@
       },
       async load () {
         const _this = this
-        if (!this.busy) {
+        if (this.records.length && !this.busy) {
+          const lastId = this.records[(this.records.length - 1)]._id
           this.busy = true
-          await this.get().then(result => {
-            this.records = [this.records, ...result]
-            _this.busy = false
-          })
+          await this.db.collection(this.collection)
+            .find({'_id': {$gt: lastId}})
+            .sort({'_id': 1})
+            .limit(this.perPage)
+            .execute()
+            .then(result => {
+              const newSet = this.records.concat(result)
+              _this.records = newSet
+              setTimeout(() => {
+                _this.busy = false
+              }, 250)
+            })
         }
       },
       async get () {
-        if (this.records.length) {
-          const lastId = this.records[(this.records.length - 1)]._id
-          await this.db.collection(this.collection).find({'_id': {$gt: lastId}}).sort({'_id': 1}).limit(this.perPage).execute()
-        } else {
-          await this.db.collection(this.collection).find({}).sort({'_id': 1}).limit(this.perPage).execute()
-        }
+        await this.db.collection(this.collection).find({}).sort({'_id': 1}).limit(this.perPage).execute()
       },
       select (input) {
         if (this.record.hasOwnProperty('name') && input.node.name !== this.record.name) {
@@ -112,17 +116,16 @@
         console.log(input)
       },
       save (input) {
-        // let id = this.record._id
+        let id = this.record._id
         let transformed = Object.assign({}, this.record)
         delete transformed._id
-        // let set = {
-        //   id: id,
-        //   set: transformed
-        // }
-        console.log(this.db)
-        // this.db.collection(this.collection).updateOne(set).execute()
-        // this.before = null
-        // this.changed = false
+        let set = {
+          id: id,
+          set: transformed
+        }
+        this.db.collection(this.collection).updateOne(set).execute()
+        this.before = null
+        this.changed = false
       }
     }
   }
