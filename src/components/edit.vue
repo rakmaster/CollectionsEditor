@@ -81,8 +81,7 @@
       async get () {
         if (this.records.length) {
           const lastId = this.records[(this.records.length - 1)]._id
-          console.log(lastId)
-          // await this.db.collection(this.collection).find({'_id': {$gt: lastId}}).sort({'_id': 1}).limit(this.perPage).execute()
+          await this.db.collection(this.collection).find({'_id': {$gt: lastId}}).sort({'_id': 1}).limit(this.perPage).execute()
         } else {
           await this.db.collection(this.collection).find({}).sort({'_id': 1}).limit(this.perPage).execute()
         }
@@ -92,7 +91,7 @@
           if (this.changed) {
             let warn = confirm('Select another record before saving the current changes?')
             if (warn) {
-              this.records[this.collection][this.recordIndex] = this.before
+              this.records[this.recordIndex] = this.before
               this.before = Object.assign({}, input.node)
               this.record = input.node
               this.recordIndex = input.index
@@ -113,16 +112,17 @@
         console.log(input)
       },
       save (input) {
-        let id = this.record._id
+        // let id = this.record._id
         let transformed = Object.assign({}, this.record)
         delete transformed._id
-        let set = {
-          id: id,
-          set: transformed
-        }
-        this.db.collection(this.collection).updateOne(set).execute()
-        this.before = null
-        this.changed = false
+        // let set = {
+        //   id: id,
+        //   set: transformed
+        // }
+        console.log(this.db)
+        // this.db.collection(this.collection).updateOne(set).execute()
+        // this.before = null
+        // this.changed = false
       }
     }
   }

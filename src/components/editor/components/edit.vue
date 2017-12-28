@@ -9,8 +9,8 @@
           :value="element"
           :key="index"
           hide-details
-          @input="mod(index)"
-          @change="change"
+          @input="mod(index, $event)"
+          @change="change()"
         ></v-text-field>
       </v-flex>
     </v-layout>
@@ -21,12 +21,11 @@
   export default {
     props: ['record'],
     methods: {
+      mod (i, e) {
+        this.record[i] = e
+      },
       change () {
         this.$emit('change')
-      },
-      mod (index) {
-        // console.log(value)
-        // record[index] = this.value
       }
     }
   }

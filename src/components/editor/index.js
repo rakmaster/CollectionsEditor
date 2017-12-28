@@ -101,10 +101,7 @@ export default {
       this.$emit('action', {name: 'load', value: null})
     },
     doSelect (item) {
-      if (item._id !== this.record._id) {
-
-        this.$emit('action', {name: 'select', value: item})
-      }
+      this.$emit('action', {name: 'select', value: item})
     },
     doRemove (index) {
       this.$emit('action', {name: 'remove', value: index})
