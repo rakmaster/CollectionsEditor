@@ -15,8 +15,11 @@ export default {
   template:
     '<v-container>' +
     '  <v-layout row>' +
-    '    <v-flex xs12>' +
+    '    <v-flex xs12 sm6>' +
     '      <div class="headline">Edit Records :: {{ set.name }}</div>' +
+    '    </v-flex>' +
+    '    <v-flex xs12 sm6>' +
+    '      <v-text-field @input="search($event)" label="search"></v-text-field>' +
     '    </v-flex>' +
     '  </v-layout>' +
     '  <v-layout row>' +
@@ -94,6 +97,9 @@ export default {
     }
   },
   methods: {
+    search (event) {
+      this.$emit('action', {name: 'search', value: event})
+    },
     doChange () {
       this.$emit('action', {name: 'change', value: null})
     },

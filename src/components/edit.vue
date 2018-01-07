@@ -6,6 +6,8 @@
   import Editor from './editor'
   import { mapState, mapActions } from 'vuex'
 
+  import { BSON } from 'mongodb-extjson'
+
   export default {
     name: 'Edit',
     components: {
@@ -23,6 +25,7 @@
       return {
         collection: '',
         records: [],
+        suggestions: [],
         record: {},
         recordIndex: 0,
         perPage: 20,
@@ -39,10 +42,14 @@
         'user'
       ]),
       send () {
+        let rec = this.records
+        if (this.suggestions.length) {
+          rec = this.suggestions
+        }
         let out = {
           name: this.collection,
           record: this.record,
-          records: this.records,
+          records: rec,
           changed: this.changed
         }
         return out
@@ -62,11 +69,24 @@
           method()
         }
       },
+      async search (term) {
+        this.suggestions = []
+        if (term.length > 3) {
+          if (!this.busy) {
+            this.busy = true
+            const reg = new BSON.BSONRegExp(term, 'i')
+            this.suggestions = await this.db.collection(this.collection).find({name: reg}).sort({'_id': 1}).limit(this.perPage).execute()
+            setTimeout(() => {
+              this.busy = false
+            }, 250)
+          }
+        }
+      },
       change () {
         this.changed = !this.changed
       },
       async set () {
-        this.records = await this.db.collection(this.collection).find().sort({'_id': 1}).limit(this.perPage).execute()
+        this.records = await this.db.collection(this.collection).find({}).sort({'_id': 1}).limit(this.perPage).execute()
       },
       async load () {
         const _this = this
