@@ -1,6 +1,7 @@
 <template>
   <v-app id="app" dark>
     <v-navigation-drawer
+      v-if="user"
       clipped
       fixed
       v-model="drawer"
