@@ -31,4 +31,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## Install
 
-Run the npm install script to load all node_modules dependencies. After the install, enter the values in the config to connect to your Stitch app. To test the connection use npm run unit stitch
+Run the npm install script to load all node_modules dependencies.
+
+## Usage
+
+After the install, enter the values for your Stitch project in the config.js file to connect to your Stitch app. You must have at least one registered user set up in Stitch in order to log into the application. 
+
+To test the connection use npm run unit stitch. If the connection is successful, the application should automatically "know" what collections you have available, and retrieve the records from those collections.
